@@ -38,12 +38,18 @@ COPY systemd/balena.service /etc/systemd/system/balena.service
 
 RUN systemctl enable /etc/systemd/system/balena.service
 
+# Host OS has bluetooth running, so don't run it inside the container
+RUN systemctl mask bluetooth
+
 STOPSIGNAL 37
 ENTRYPOINT ["/usr/bin/entry.sh"]
 ENV INITSYSTEM on
 ######################
 # Finish setup systemd
 ######################
+
+# Enable UDEV
+ENV UDEV on
 
 # Setting up the user application
 WORKDIR /usr/src/app

@@ -3,9 +3,7 @@ services:
   app:
     build: ./app
     privileged: true
-    network_mode: host
-    devices:
-      - '/dev:/dev'
-    environment:
-      - UDEV=1
     restart: never
+    network_mode: host
+    labels:
+      io.balena.features.dbus: '1'
